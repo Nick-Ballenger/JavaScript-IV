@@ -49,54 +49,66 @@ Prototype Refactor
 */
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
+class Person {
+    constructor(att) {
+        this.name = att.name,
+        this.age = att.age,
+        this.location = att.location,
+        this.gender = att.gender
+    }
+    speak(){
+      return  `Hi, my name is ${this.name}`
+    }
+};
 
-function GameObject (attrs){
-    this.createdAt = attrs.createdAt;
-    this.name = attrs.name;
-    this.dimensions =attrs.dimensions;  
+class GameObject{
+    constructor(attrs) {
+        this.createdAt = attrs.createdAt;
+        this.name = attrs.name;
+        this.dimensions =attrs.dimensions;  
+    }
+    destroy = function(){
+        return `${this.name} was removed from the game.`      
+      };
+}
+
+class CharacterStats extends GameObject{
+    constructor(deets){
+        super(deets);
+        this.healthPoints = deets.healthPoints;
+
+    }
+    takeDamage = function(){
+        return `${this.name} took damage.`
+      
+      };
+}
+ 
+ class Humanoid extends CharacterStats{
+     constructor(attributes){
+         super(attributes);
+         this.team = attributes.team;
+         this.weapons = attributes.weapons;
+         this.language = attributes.language;
+     }
+     greet = function(){
+        return `${this.name} offers a greeting in ${this.language}`
+      };
+ } 
   
-  }
-  GameObject.prototype.destroy = function(){
-    return `${this.name} was removed from the game.`
+ 
   
-  };
-  function CharacterStats (deets){
-    GameObject.call(this,deets);
-    this.healthPoints = deets.healthPoints;
-    
-  }
-  CharacterStats.prototype = Object.create(GameObject.prototype);
-  CharacterStats.prototype.takeDamage = function(){
-    return `${this.name} took damage.`
+//   function Hero(heroAtts){
+//     GameObject.call(this,heroAtts);
+//     CharacterStats.call(this,heroAtts);
+//     Humanoid.call(this,heroAtts);
+//   };
   
-  };
-  
-  
-  function Humanoid(attributes){
-    
-    CharacterStats.call(this,attributes);
-    this.team = attributes.team;
-    this.weapons = attributes.weapons;
-    this.language = attributes.language;
-  };
-  
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  
-  Humanoid.prototype.greet = function(){
-    return `${this.name} offers a greeting in ${this.language}`
-  };
-  
-  function Hero(heroAtts){
-    GameObject.call(this,heroAtts);
-    CharacterStats.call(this,heroAtts);
-    Humanoid.call(this,heroAtts);
-  };
-  
-  function Villain(villainAtts){
-    GameObject.call(this,villainAtts);
-    CharacterStats.call(this,villainAtts);
-    Humanoid.call(this,villainAtts);
-  };
+//   function Villain(villainAtts){
+//     GameObject.call(this,villainAtts);
+//     CharacterStats.call(this,villainAtts);
+//     Humanoid.call(this,villainAtts);
+//   };
   
     const mage = new Humanoid({
       createdAt: new Date(),
@@ -148,40 +160,40 @@ function GameObject (attrs){
       language: 'Elvish',
     });
   
-    const savior = new Hero({
-      createdAt: new Date(),
-      dimensions: {
-        length: 1,
-        width: 2,
-        height: 4,
-      },
-      healthPoints: 9001,
-      name: 'Tai Lopez',
-      team: 'Youtube Adspace',
-      weapons: [
-        'knowledge'
-      ],
-      language: 'Pyramid Scheme',
-    });
+    // const savior = new Hero({
+    //   createdAt: new Date(),
+    //   dimensions: {
+    //     length: 1,
+    //     width: 2,
+    //     height: 4,
+    //   },
+    //   healthPoints: 9001,
+    //   name: 'Tai Lopez',
+    //   team: 'Youtube Adspace',
+    //   weapons: [
+    //     'knowledge'
+    //   ],
+    //   language: 'Pyramid Scheme',
+    // });
   
-    const nemesis = new Villain({
-      createdAt: new Date(),
-      dimensions: {
-        length: 1,
-        width: 2,
-        height: 4,
-      },
-      healthPoints: 9009,
-      name: 'Ethan',
-      team: 'Youtube Creator',
-      weapons: [
-        'Satire'
-      ],
-      language: 'Common',
-    });
-    GameObject.prototype.speak = function() {
-      return ``;
-    }
+    // const nemesis = new Villain({
+    //   createdAt: new Date(),
+    //   dimensions: {
+    //     length: 1,
+    //     width: 2,
+    //     height: 4,
+    //   },
+    //   healthPoints: 9009,
+    //   name: 'Ethan',
+    //   team: 'Youtube Creator',
+    //   weapons: [
+    //     'Satire'
+    //   ],
+    //   language: 'Common',
+    // });
+    // GameObject.prototype.speak = function() {
+    //   return ``;
+    // }
   
     console.log(mage.createdAt); // Today's date
     console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
