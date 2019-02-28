@@ -18,6 +18,18 @@ class Instructor extends Person1{
         this.favLanguage =  att.favLanguage,
         this.catchPhrase = att.catchPhrase
     };
+     randomRangeWithIncrements(min, max, inc) {
+        let grade = Student.grade;
+
+
+        min = min || 0;
+        inc = inc || 2;
+      
+        console.log (Math.floor(Math.random(student.grade) * (max - min) / inc) * inc + min);
+    }
+    
+   randomRangeWithIncrements(Student);
+    
     demo (subject){
            return `Today we are learning about ${subject}`
            
@@ -32,7 +44,8 @@ class Student extends Person1{
         super(att);
         this.previousBackground = att.previousBackground,
         this.className = att.className,
-        this.favSubjects = att.favSubjects 
+        this.favSubjects = att.favSubjects, 
+        this.grade = att.grade
     } 
 
     listSubjects(){
@@ -61,8 +74,8 @@ class PM extends Instructor{
     standup(channel){
         return `${this.name} announces to ${channel} @channel standy times!`
     }
-    debugsCode(studentName, subject){
-      return  `${this.name} debugs ${studentName} code on ${subject}`
+    debugsCode(StudentName,subject){
+      return  `${this.name} debugs ${StudentName}'s code on ${subject}`
     }
 }
    
@@ -98,7 +111,8 @@ const NewStudent = new Student({
     gender: 'm',
     previousBackground:'IT',
     className:'web18',
-    favSubjects:  ['html', 'css']
+    favSubjects:  ['html', 'css','JS'],
+    grade:100
 });
 
 const NewStudent1 = new Student({
@@ -108,7 +122,8 @@ const NewStudent1 = new Student({
     gender: 'm',
     previousBackground:'Wizardry',
     className:'Gryffindor',
-    favSubjects:  ['potions', 'lunch']
+    favSubjects:  ['potions', 'lunch'],
+    grade:35
 });
 
 const PM1 = new PM({
@@ -134,12 +149,16 @@ const PM2 = new PM({
     gradClassName:'Web15',
     favInstructor:'josh'
 });
-
+console.log(PM2.catchPhrase);
   console.log(Lambda.speak());
   console.log(NewStudent.sprintChallenge('CSS'));
   console.log(NewStudent1.PRAssignments('Defense against the Dark arts.'))
   console.log(PM2.specialty);
-  console.log(PM1.debugsCode('Harry','C++' ))
+  console.log(PM1.debugsCode(NewStudent.name, 'C++' ))
   console.log (PM2.standup('my'))
 //   console.log(NewStudent.favSubjects[1],NewStudent.favSubjects[0]);
   console.log(NewStudent1.listSubjects());
+  console.log(Lambda1.grade(NewStudent,'HTML'))   
+  console.log(PM2.name);
+  console.log(Lambda.randomRangeWithIncrements())
+ 
